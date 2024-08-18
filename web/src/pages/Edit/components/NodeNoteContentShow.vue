@@ -15,8 +15,11 @@
 </template>
 
 <script>
-import Viewer from '@toast-ui/editor/dist/toastui-editor-viewer'
-import '@toast-ui/editor/dist/toastui-editor-viewer.css'
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import Editor from '@toast-ui/editor';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
+import '@toast-ui/editor/dist/toastui-editor.css'; // Editor's Style
 
 /**
  * @Author: 王林
@@ -105,8 +108,10 @@ export default {
     // 初始化编辑器
     initEditor() {
       if (!this.editor) {
-        this.editor = new Viewer({
-          el: this.$refs.noteContentViewer
+        this.editor = Editor.factory({
+          el: this.$refs.noteContentViewer,
+          viewer: true,
+          plugins: [codeSyntaxHighlight]
         })
       }
     }

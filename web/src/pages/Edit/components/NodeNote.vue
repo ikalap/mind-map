@@ -25,8 +25,12 @@
 </template>
 
 <script>
-import Editor from '@toast-ui/editor'
-import '@toast-ui/editor/dist/toastui-editor.css' // Editor's Style
+import 'prismjs/themes/prism.css';
+import '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight.css';
+import Editor from '@toast-ui/editor';
+import codeSyntaxHighlight from '@toast-ui/editor-plugin-code-syntax-highlight/dist/toastui-editor-plugin-code-syntax-highlight-all.js';
+import '@toast-ui/editor/dist/toastui-editor.css'; // Editor's Style
+
 import { isMobile } from 'simple-mind-map/src/utils/index'
 
 /**
@@ -90,7 +94,8 @@ export default {
           el: this.$refs.noteEditor,
           height: '500px',
           initialEditType: 'markdown',
-          previewStyle: 'vertical'
+          previewStyle: 'vertical',
+          plugins: [codeSyntaxHighlight]
         })
       }
       this.editor.setMarkdown(this.note)
