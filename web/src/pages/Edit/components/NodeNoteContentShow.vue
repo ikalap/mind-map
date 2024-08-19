@@ -1,6 +1,7 @@
 <template>
   <div
     class="noteContentViewer"
+    id="noteContentViewer"
     ref="noteContentViewer"
     :style="{
       left: this.left + 'px',
@@ -11,6 +12,7 @@
     @mousedown.stop
     @mousemove.stop
     @mouseup.stop
+    @wheel="handleScroll"
   ></div>
 </template>
 
@@ -58,6 +60,7 @@ export default {
   mounted() {
     this.mindMap.el.appendChild(this.$refs.noteContentViewer)
     this.initEditor()
+    this.addScrollListener()
   },
   beforeDestroy() {
     this.$bus.$off('showNoteContent', this.onShowNoteContent)
@@ -105,16 +108,42 @@ export default {
       this.show = false
     },
 
+    //  鼠标滚动/触控板滑动
+    onMousewheel(e) {
+      return ;
+
+    },
+
+    // 添加滚动监听器
+    addScrollListener() {
+      this.$refs.noteContentViewer.addEventListener('wheel', this.handleScroll, { passive: false });
+    },
+
+    // 移除滚动监听器
+    removeScrollListener() {
+      this.$refs.noteContentViewer.removeEventListener('wheel', this.handleScroll);
+    },
+
+    // 处理滚动事件
+    handleScroll(event) {
+      event.stopPropagation()
+    },
+
     // 初始化编辑器
     initEditor() {
+      const div = document.querySelector('#noteContentViewer')
+      div.removeEventListener('wheel', null)
+
       if (!this.editor) {
         this.editor = Editor.factory({
           el: this.$refs.noteContentViewer,
           viewer: true,
+          scrollSync: true,
           plugins: [codeSyntaxHighlight]
         })
       }
-    }
+    },
+
   }
 }
 </script>

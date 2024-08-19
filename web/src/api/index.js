@@ -9,6 +9,36 @@ const SIMPLE_MIND_MAP_LOCAL_CONFIG = 'SIMPLE_MIND_MAP_LOCAL_CONFIG'
 
 let mindMapData = null
 
+// 上传文件
+export const uploadFiles = data => {
+  return http.post('/uploadFiles', data)
+}
+
+// 上传图片
+export const uploadImg = data => {
+  return http.post('/uploadImg', data)
+}
+
+// 获取用户信息
+export const getUserInfo = () => {
+  return http.get('/getUserInfo')
+}
+
+// 获取文件内容
+export const getFileContent = params => {
+  return http.get('/getFileContent', {
+    params
+  })
+}
+
+// 更新文件内容
+export const updateFile = data => {
+  return http.post('/updateFile', data)
+}
+
+
+
+
 /**
  * @Author: 王林
  * @Date: 2021-08-02 22:36:48
